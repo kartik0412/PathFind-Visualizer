@@ -3,8 +3,8 @@ import Cell from "../Cell/Cell";
 import "./Board.css";
 import algorithm from "../Algorithm/algorithm.js";
 
-let nrows = 16;
-let ncols = 49;
+let nrows = 19;
+let ncols = 55;
 
 class Board extends React.Component {
 	constructor(props) {
@@ -19,8 +19,8 @@ class Board extends React.Component {
 			freeze: false,
 			randomValue: 0,
 			pace: 10,
-			startCoord: [6, 8],
-			endCoord: [6, 42]
+			startCoord: [7, 8],
+			endCoord: [7, 46]
 		};
 		this.handleButton = this.handleButton.bind(this);
 		this.handleRemovePath = this.handleRemovePath.bind(this);
@@ -105,8 +105,8 @@ class Board extends React.Component {
 				hasdone: false,
 				freeze: false,
 				randomValue: 0,
-				startCoord: [6, 8],
-				endCoord: [6, 42]
+				startCoord: [7, 8],
+				endCoord: [7, 46]
 			},
 			() => {
 				for (let i = 0; i < nrows; i++) {
@@ -287,8 +287,8 @@ class Board extends React.Component {
 					x: i,
 					y: j,
 					isWall: false,
-					isStart: i === 6 && j === 8,
-					isEnd: i === 6 && j === 42,
+					isStart: i === 7 && j === 8,
+					isEnd: i === 7 && j === 46,
 					isVisited: false,
 					distance: Infinity,
 					parent: null
