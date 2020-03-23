@@ -14,7 +14,6 @@ class Cell extends React.Component {
 		this.props.handleStartEnd(a[1], a[2], b[1], b[2]);
 	};
 	onDragStart = e => {
-		console.log(e.target.id);
 		e.dataTransfer.setData("text", e.target.id);
 	};
 

@@ -3,17 +3,20 @@ function bfs(startNode, endNode, grid, allowDiagnols) {
 	let parentNodes = [];
 	let [startx, starty] = [startNode.x, startNode.y];
 	let [endx, endy] = [endNode.x, endNode.y];
-	let { dirx, diry } = includeDiagnols(allowDiagnols);
 	let q = [];
 
-	grid[startx][starty].isVisited = true;
-	q.push([startx, starty, 0]);
+	let { dirx, diry } = includeDiagnols(allowDiagnols);
+
+	startNode.isVisited = true;
+	startNode.distance = 0;
+	q.push(startNode);
+
 	while (q.length > 0) {
-		let [curx, cury, cnt] = q.shift();
+		let curNode = q.shift();
 
 		for (let i = 0; i < dirx.length; i++) {
-			let xx = curx + dirx[i];
-			let yy = cury + diry[i];
+			let xx = curNode.x + dirx[i];
+			let yy = curNode.y + diry[i];
 
 			if (
 				xx < 0 ||
@@ -25,10 +28,11 @@ function bfs(startNode, endNode, grid, allowDiagnols) {
 			)
 				continue;
 			grid[xx][yy].isVisited = true;
-			grid[xx][yy].parent = [curx, cury];
+			visitedNodes.push([xx, yy]);
+			grid[xx][yy].parent = [curNode.x, curNode.y];
+
 			visitedNodes.push([xx, yy]);
 			if (xx === endx && yy === endy) {
-				console.log("Steps = ", cnt);
 				console.log("From BFS");
 				let x = xx;
 				let y = yy;
@@ -39,7 +43,7 @@ function bfs(startNode, endNode, grid, allowDiagnols) {
 				parentNodes.push([startx, starty]);
 				return [visitedNodes, parentNodes];
 			}
-			q.push([xx, yy, cnt + 1]);
+			q.push(grid[xx][yy]);
 		}
 	}
 

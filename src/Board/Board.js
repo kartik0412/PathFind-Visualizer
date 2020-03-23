@@ -251,7 +251,8 @@ class Board extends React.Component {
 			}
 			setTimeout(() => {
 				document.getElementById(`node-${parentNodes[i][0]}-${parentNodes[i][1]}`).className = "tracePath";
-				document.getElementById(`node-${parentNodes[i][0]}-${parentNodes[i][1]}`).innerHTML = parentNodes.length - i;
+				document.getElementById(`node-${parentNodes[i][0]}-${parentNodes[i][1]}`).innerHTML =
+					parentNodes.length - i - 1;
 				document.getElementById(`node-${parentNodes[i][0]}-${parentNodes[i][1]}`).style.fontSize = "10px";
 			}, 20 * (parentNodes.length - i));
 		}
@@ -338,17 +339,17 @@ class Board extends React.Component {
 					<div className="selectdiv">
 						<label>
 							<select disabled={this.state.freeze} onChange={this.handleAlgo} name="algo">
-								<option defaultValue value="1">
-									BFS
+								<option defaultValue className="choice" value="1">
+									A Star
 								</option>
 								<option className="choice" value="2">
 									Dijkstra
 								</option>
 								<option className="choice" value="3">
-									A Star
+									Greedy BFS
 								</option>
 								<option className="choice" value="4">
-									Greedy BFS
+									BFS
 								</option>
 								<option className="choice" value="5">
 									DFS
