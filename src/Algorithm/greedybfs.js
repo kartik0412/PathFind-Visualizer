@@ -16,7 +16,7 @@ function greedybfs(startNode, endNode, grid, allowDiagnols) {
 	let [startx, starty] = [startNode.x, startNode.y];
 	let [endx, endy] = [endNode.x, endNode.y];
 	let q = [];
-	startNode.isVisited = 1;
+	startNode.isVisited = true;
 	startNode.distance = 0;
 	q.push(startNode);
 
@@ -34,11 +34,11 @@ function greedybfs(startNode, endNode, grid, allowDiagnols) {
 				yy < 0 ||
 				xx >= grid.length ||
 				yy >= grid[0].length ||
-				grid[xx][yy].isVisited === 1 ||
+				grid[xx][yy].isVisited === true ||
 				grid[xx][yy].isWall === true
 			)
 				continue;
-			grid[xx][yy].isVisited = 1;
+			grid[xx][yy].isVisited = true;
 			visitedNodes.push([xx, yy]);
 			grid[xx][yy].parent = [curNode.x, curNode.y];
 			grid[xx][yy].distance = calculateH(xx, yy, endNode, allowDiagnols);

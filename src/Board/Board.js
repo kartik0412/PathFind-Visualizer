@@ -3,13 +3,8 @@ import Cell from "../Cell/Cell";
 import "./Board.css";
 import algorithm from "../Algorithm/algorithm.js";
 
-let nrows = 18;
-let ncols = 55;
-
-let startx = 4;
-let starty = 8;
-let endx = 12;
-let endy = 44;
+let nrows = 16;
+let ncols = 49;
 
 class Board extends React.Component {
 	constructor(props) {
@@ -23,7 +18,9 @@ class Board extends React.Component {
 			algo: 1,
 			freeze: false,
 			randomValue: 0,
-			pace: 10
+			pace: 10,
+			startCoord: [6, 8],
+			endCoord: [6, 42]
 		};
 		this.handleButton = this.handleButton.bind(this);
 		this.handleRemovePath = this.handleRemovePath.bind(this);
@@ -33,6 +30,33 @@ class Board extends React.Component {
 		this.handleRandomValue = this.handleRandomValue.bind(this);
 		this.handlePaceValue = this.handlePaceValue.bind(this);
 	}
+
+	handleStartEnd = (x, y, prex, prey) => {
+		let grid = this.state.grid;
+		console.log(x, y, prex, prey);
+		if (x === prex && y === prey) return;
+		let xcoord = this.state.startCoord;
+		let ycoord = this.state.endCoord;
+
+		if (grid[prex][prey].isStart) {
+			grid[x][y].isStart = true;
+			grid[x][y].isWall = false;
+			grid[prex][prey] = false;
+			xcoord = [x, y];
+		} else {
+			grid[x][y].isEnd = true;
+			grid[x][y].isWall = false;
+			grid[prex][prey].isEnd = false;
+			ycoord = [x, y];
+		}
+
+		this.setState({
+			grid: grid,
+			isMouseDown: false,
+			startCoord: xcoord,
+			endCoord: ycoord
+		});
+	};
 
 	handleAlgo(evt) {
 		this.setState({
@@ -51,7 +75,7 @@ class Board extends React.Component {
 	}
 
 	handleMouseDown(x, y) {
-		if (this.state.ison || this.state.hasdone) return;
+		if (this.state.ison || this.state.hasdone || this.state.grid[x][y].isStart || this.state.grid[x][y].isEnd) return;
 		const newGrid = toggleWall(this.state.grid, x, y);
 		this.setState({ grid: newGrid, isMouseDown: true });
 	}
@@ -80,14 +104,17 @@ class Board extends React.Component {
 				ison: false,
 				hasdone: false,
 				freeze: false,
-				randomValue: this.state.randomValue
+				randomValue: 0,
+				startCoord: [6, 8],
+				endCoord: [6, 42]
 			},
 			() => {
 				for (let i = 0; i < nrows; i++) {
 					for (let j = 0; j < ncols; j++) {
 						let cellType = "notWall";
 						if (this.state.grid[i][j].isEnd) cellType = "endCell";
-						if (this.state.grid[i][j].isStart) cellType = "startCell";
+						else if (this.state.grid[i][j].isStart) cellType = "startCell";
+						console.log(i, j, document.getElementById(`node-${i}-${j}`).className);
 						document.getElementById(`node-${i}-${j}`).className = cellType;
 						document.getElementById(`node-${i}-${j}`).innerHTML = "";
 					}
@@ -102,13 +129,14 @@ class Board extends React.Component {
 			let x = [];
 			for (let j = 0; j < ncols; j++) {
 				let makeWall = Math.random() <= this.state.randomValue;
-				if ((i === startx && j === starty) || (i === endx && j === endy)) makeWall = false;
+				if (this.state.grid[i][j].isStart || this.state.grid[i][j].isEnd) makeWall = false;
+
 				x.push({
 					x: i,
 					y: j,
 					isWall: makeWall,
-					isStart: i === startx && j === starty,
-					isEnd: i === endx && j === endy,
+					isStart: this.state.grid[i][j].isStart,
+					isEnd: this.state.grid[i][j].isEnd,
 					isVisited: false,
 					distance: Infinity,
 					parent: null
@@ -148,8 +176,8 @@ class Board extends React.Component {
 					x: i,
 					y: j,
 					isWall: this.state.grid[i][j].isWall,
-					isStart: i === startx && j === starty,
-					isEnd: i === endx && j === endy,
+					isStart: this.state.grid[i][j].isStart,
+					isEnd: this.state.grid[i][j].isEnd,
 					isVisited: false,
 					distance: Infinity,
 					parent: null
@@ -169,8 +197,8 @@ class Board extends React.Component {
 					for (let j = 0; j < ncols; j++) {
 						let cellType = "notWall";
 						if (this.state.grid[i][j].isWall) cellType = "wall";
-						else if (this.state.grid[i][j].isEnd) cellType = "endCell";
 						else if (this.state.grid[i][j].isStart) cellType = "startCell";
+						else if (this.state.grid[i][j].isEnd) cellType = "endCell";
 						document.getElementById(`node-${i}-${j}`).className = cellType;
 						document.getElementById(`node-${i}-${j}`).innerHTML = "";
 					}
@@ -191,6 +219,8 @@ class Board extends React.Component {
 				freeze: true
 			},
 			() => {
+				let [startx, starty] = this.state.startCoord;
+				let [endx, endy] = this.state.endCoord;
 				let [visitedNodes, parentNodes] = algorithm(
 					this.state.grid[startx][starty],
 					this.state.grid[endx][endy],
@@ -205,18 +235,24 @@ class Board extends React.Component {
 	}
 
 	animatePath(parentNodes) {
-		for (let i = parentNodes.length; i >= 0; i--) {
+		for (let i = parentNodes.length - 1; i >= 0; i--) {
 			if (i === 0) {
 				setTimeout(() => {
 					this.setState({ ison: false, hasdone: true, freeze: false });
 				}, 20 * (parentNodes.length - i));
+				setTimeout(() => {
+					document.getElementById(`node-${parentNodes[i][0]}-${parentNodes[i][1]}`).className = "tracePath";
+					document.getElementById(`node-${parentNodes[i][0]}-${parentNodes[i][1]}`).innerHTML =
+						parentNodes.length - i;
+					document.getElementById(`node-${parentNodes[i][0]}-${parentNodes[i][1]}`).style.fontSize = "10px";
+				}, 20 * (parentNodes.length - i + 1));
 
 				return;
 			}
 			setTimeout(() => {
-				document.getElementById(`node-${parentNodes[i - 1][0]}-${parentNodes[i - 1][1]}`).className = "tracePath";
-				document.getElementById(`node-${parentNodes[i - 1][0]}-${parentNodes[i - 1][1]}`).innerHTML =
-					parentNodes.length - i;
+				document.getElementById(`node-${parentNodes[i][0]}-${parentNodes[i][1]}`).className = "tracePath";
+				document.getElementById(`node-${parentNodes[i][0]}-${parentNodes[i][1]}`).innerHTML = parentNodes.length - i;
+				document.getElementById(`node-${parentNodes[i][0]}-${parentNodes[i][1]}`).style.fontSize = "10px";
 			}, 20 * (parentNodes.length - i));
 		}
 	}
@@ -251,8 +287,8 @@ class Board extends React.Component {
 					x: i,
 					y: j,
 					isWall: false,
-					isStart: i === startx && j === starty,
-					isEnd: i === endx && j === endy,
+					isStart: i === 6 && j === 8,
+					isEnd: i === 6 && j === 42,
 					isVisited: false,
 					distance: Infinity,
 					parent: null
@@ -277,6 +313,7 @@ class Board extends React.Component {
 						isStart={grid[i][j].isStart}
 						isWall={grid[i][j].isWall}
 						isEnd={grid[i][j].isEnd}
+						handleStartEnd={(x, y, z, w) => this.handleStartEnd(x, y, z, w)}
 						onMouseDown={(i, j) => this.handleMouseDown(i, j)}
 						onMouseUp={() => this.handleMouseUp()}
 						onMouseEnter={(i, j) => this.handleMouseEnter(i, j)}
@@ -293,7 +330,7 @@ class Board extends React.Component {
 		if (this.state.ison) buttonvalue = "running..";
 		else if (this.state.hasdone) buttonvalue = "reset";
 		return (
-			<div>
+			<div className="mainBox">
 				<div className="box">
 					<h2 className="heading">
 						PathFind <span style={{ color: "#fc766a" }}>Visualizer</span>

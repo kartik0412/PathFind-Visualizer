@@ -6,7 +6,7 @@ function bfs(startNode, endNode, grid, allowDiagnols) {
 	let { dirx, diry } = includeDiagnols(allowDiagnols);
 	let q = [];
 
-	grid[startx][starty].isVisited = 1;
+	grid[startx][starty].isVisited = true;
 	q.push([startx, starty, 0]);
 	while (q.length > 0) {
 		let [curx, cury, cnt] = q.shift();
@@ -20,11 +20,11 @@ function bfs(startNode, endNode, grid, allowDiagnols) {
 				yy < 0 ||
 				xx >= grid.length ||
 				yy >= grid[0].length ||
-				grid[xx][yy].isVisited === 1 ||
+				grid[xx][yy].isVisited === true ||
 				grid[xx][yy].isWall === true
 			)
 				continue;
-			grid[xx][yy].isVisited = 1;
+			grid[xx][yy].isVisited = true;
 			grid[xx][yy].parent = [curx, cury];
 			visitedNodes.push([xx, yy]);
 			if (xx === endx && yy === endy) {
