@@ -8,6 +8,13 @@ body {
 
 table {
 	border-collapse: collapse;
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently
+                    supported by Chrome, Opera and Firefox */
 }
 
 .mainBox {
@@ -33,7 +40,7 @@ table {
 	text-transform: uppercase;
 	background-color: white;
 	outline: none;
-	font: 18px "Consolas", monospace;
+	font: 15px "Fira Sans", sans-serif;
 	border: none;
 	color: #fc766a;
 	font-weight: 700;
@@ -51,7 +58,7 @@ table {
 	text-transform: uppercase;
 	background-color: white;
 	outline: none;
-	font: 18px "Consolas", monospace;
+	font: 15px "Fira Sans", sans-serif;
 	border: none;
 	color: rgba(0, 212, 255, 1);
 	font-weight: 700;
@@ -119,7 +126,7 @@ select::-ms-expand {
 .heading {
 	color: white;
 	height: 0px;
-	font: 28px "Consolas";
+	font: 29px "Fira Sans", sans-serif;
 	padding: 0;
 	position: absolute;
 	width: 100%;
@@ -195,7 +202,7 @@ select::-ms-expand {
 	letter-spacing: 2px;
 	float: left;
 	padding: 0px 24px;
-	font-size: 14px;
+	font: 18px "Fira Sans", sans-serif;
 	line-height: 1.75;
 	color: white;
 	background-color: rgba(0, 212, 255, 1);
@@ -207,10 +214,9 @@ select::-ms-expand {
 
 .choice {
 	font-weight: bolder;
-	letter-spacing: 2px;
 	border: none;
 	outline: none;
-	font: 16px "Consolas";
+	font: 15px "Fira Sans", sans-serif;
 }
 
 .selectdiv select {
@@ -228,7 +234,7 @@ select::-ms-expand {
 	letter-spacing: 2px;
 	float: left;
 	padding: 0px 24px;
-	font-size: 14px;
+	font: 18px "Fira Sans", sans-serif;
 	line-height: 1.75;
 	color: white;
 	outline: none;

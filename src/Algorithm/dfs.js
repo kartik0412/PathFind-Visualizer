@@ -17,9 +17,10 @@ function solve(x, y, endx, endy, visitedNodes) {
 			grid[xx][yy].isVisited === true
 		)
 			continue;
-		visitedNodes.push([xx, yy]);
 		grid[xx][yy].isVisited = true;
 		grid[xx][yy].parent = grid[x][y];
+		if (xx === endx && yy === endy) return 1;
+		visitedNodes.push([xx, yy]);
 		if (solve(xx, yy, endx, endy, visitedNodes)) return 1;
 	}
 	return 0;

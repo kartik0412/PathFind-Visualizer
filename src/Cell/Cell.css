@@ -40,14 +40,14 @@ td {
 	width: 25px;
 	height: 25px;
 	cursor: grabbing;
+	background-image: url(source.svg);
 	overflow: hidden;
-	background-color: #00ff00;
 }
 
 .endCell {
 	width: 25px;
 	height: 25px;
-	background-color: #ff0000;
+	background-image: url(destination.svg);
 	cursor: grabbing;
 	overflow: hidden;
 }

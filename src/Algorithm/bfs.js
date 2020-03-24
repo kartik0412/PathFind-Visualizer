@@ -28,10 +28,8 @@ function bfs(startNode, endNode, grid, allowDiagnols) {
 			)
 				continue;
 			grid[xx][yy].isVisited = true;
-			visitedNodes.push([xx, yy]);
 			grid[xx][yy].parent = [curNode.x, curNode.y];
 
-			visitedNodes.push([xx, yy]);
 			if (xx === endx && yy === endy) {
 				console.log("From BFS");
 				let x = xx;
@@ -43,6 +41,7 @@ function bfs(startNode, endNode, grid, allowDiagnols) {
 				parentNodes.push([startx, starty]);
 				return [visitedNodes, parentNodes];
 			}
+			visitedNodes.push([xx, yy]);
 			q.push(grid[xx][yy]);
 		}
 	}

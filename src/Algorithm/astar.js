@@ -75,7 +75,6 @@ function astar(startNode, endNode, grid, allowDiagnols) {
 			)
 				continue;
 			mat[xx][yy].isVisited = true;
-			visitedNodes.push([xx, yy]);
 			let gNew = 1 + curNode.g;
 			let hNew = calculateH(xx, yy, endNode, allowDiagnols);
 			let fNew = gNew + hNew;
@@ -86,7 +85,6 @@ function astar(startNode, endNode, grid, allowDiagnols) {
 				mat[xx][yy].parent = [curNode.x, curNode.y];
 				q.push(mat[xx][yy]);
 			}
-
 			if (grid[xx][yy] === endNode) {
 				console.log("From A Star");
 				let x = xx;
@@ -98,6 +96,7 @@ function astar(startNode, endNode, grid, allowDiagnols) {
 				parentNodes.push([startNode.x, startNode.y]);
 				return [visitedNodes, parentNodes];
 			}
+			visitedNodes.push([xx, yy]);
 		}
 		sortNodesByDistance(q);
 	}

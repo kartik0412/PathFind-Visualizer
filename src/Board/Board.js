@@ -20,7 +20,9 @@ class Board extends React.Component {
 			randomValue: 0,
 			pace: 10,
 			startCoord: [7, 8],
-			endCoord: [7, 46]
+			endCoord: [7, 46],
+			isMove: false,
+			previous: []
 		};
 		this.handleButton = this.handleButton.bind(this);
 		this.handleRemovePath = this.handleRemovePath.bind(this);
@@ -30,33 +32,6 @@ class Board extends React.Component {
 		this.handleRandomValue = this.handleRandomValue.bind(this);
 		this.handlePaceValue = this.handlePaceValue.bind(this);
 	}
-
-	handleStartEnd = (x, y, prex, prey) => {
-		let grid = this.state.grid;
-		console.log(x, y, prex, prey);
-		if (x === prex && y === prey) return;
-		let xcoord = this.state.startCoord;
-		let ycoord = this.state.endCoord;
-
-		if (grid[prex][prey].isStart) {
-			grid[x][y].isStart = true;
-			grid[x][y].isWall = false;
-			grid[prex][prey] = false;
-			xcoord = [x, y];
-		} else {
-			grid[x][y].isEnd = true;
-			grid[x][y].isWall = false;
-			grid[prex][prey].isEnd = false;
-			ycoord = [x, y];
-		}
-
-		this.setState({
-			grid: grid,
-			isMouseDown: false,
-			startCoord: xcoord,
-			endCoord: ycoord
-		});
-	};
 
 	handleAlgo(evt) {
 		this.setState({
@@ -75,16 +50,46 @@ class Board extends React.Component {
 	}
 
 	handleMouseDown(x, y) {
-		if (this.state.ison || this.state.hasdone || this.state.grid[x][y].isStart || this.state.grid[x][y].isEnd) return;
-		const newGrid = toggleWall(this.state.grid, x, y);
-		this.setState({ grid: newGrid, isMouseDown: true });
+		if (this.state.ison || this.state.hasdone) return;
+		if (this.state.grid[x][y].isStart || this.state.grid[x][y].isEnd) {
+			this.setState({
+				isMove: true,
+				previous: [x, y]
+			});
+		} else {
+			const newGrid = toggleWall(this.state.grid, x, y);
+			this.setState({ grid: newGrid, isMouseDown: true });
+		}
 	}
 	handleMouseUp() {
 		if (this.state.ison) return;
-		this.setState({ isMouseDown: false });
+		this.setState({ isMouseDown: false, isMove: false });
 	}
 	handleMouseEnter(x, y) {
 		if (this.state.ison || this.state.hasdone) return;
+		if (this.state.isMove) {
+			if (this.state.grid[x][y].isWall) return;
+			let grid = this.state.grid;
+			let [prex, prey] = this.state.previous;
+			if (prex === x && prey === y) return;
+			let xcoord = this.state.startCoord;
+			let ycoord = this.state.endCoord;
+			if (grid[prex][prey].isStart) {
+				grid[prex][prey].isStart = false;
+				grid[x][y].isStart = true;
+				xcoord = [x, y];
+			} else {
+				grid[prex][prey].isEnd = false;
+				grid[x][y].isEnd = true;
+				ycoord = [x, y];
+			}
+			this.setState({
+				grid: grid,
+				startCoord: xcoord,
+				endCoord: ycoord,
+				previous: [x, y]
+			});
+		}
 		if (!this.state.isMouseDown) return;
 		const newGrid = toggleWall(this.state.grid, x, y);
 		this.setState({ grid: newGrid, isMouseDown: true });
@@ -235,8 +240,8 @@ class Board extends React.Component {
 	}
 
 	animatePath(parentNodes) {
-		for (let i = parentNodes.length - 1; i >= 0; i--) {
-			if (i === 0) {
+		for (let i = parentNodes.length - 2; i >= 1; i--) {
+			if (i === 1) {
 				setTimeout(() => {
 					this.setState({ ison: false, hasdone: true, freeze: false });
 				}, 20 * (parentNodes.length - i));
@@ -314,7 +319,6 @@ class Board extends React.Component {
 						isStart={grid[i][j].isStart}
 						isWall={grid[i][j].isWall}
 						isEnd={grid[i][j].isEnd}
-						handleStartEnd={(x, y, z, w) => this.handleStartEnd(x, y, z, w)}
 						onMouseDown={(i, j) => this.handleMouseDown(i, j)}
 						onMouseUp={() => this.handleMouseUp()}
 						onMouseEnter={(i, j) => this.handleMouseEnter(i, j)}
@@ -322,7 +326,7 @@ class Board extends React.Component {
 				);
 			}
 			board.push(
-				<tr key={i} className="row">
+				<tr key={i} className='row'>
 					{x}
 				</tr>
 			);
@@ -331,45 +335,45 @@ class Board extends React.Component {
 		if (this.state.ison) buttonvalue = "running..";
 		else if (this.state.hasdone) buttonvalue = "reset";
 		return (
-			<div className="mainBox">
-				<div className="box">
-					<h2 className="heading">
+			<div className='mainBox'>
+				<div className='box'>
+					<h2 className='heading'>
 						PathFind <span style={{ color: "#fc766a" }}>Visualizer</span>
 					</h2>
-					<div className="selectdiv">
+					<div className='selectdiv'>
 						<label>
-							<select disabled={this.state.freeze} onChange={this.handleAlgo} name="algo">
-								<option defaultValue className="choice" value="1">
+							<select disabled={this.state.freeze} onChange={this.handleAlgo} name='algo'>
+								<option defaultValue className='choice' value='1'>
 									A Star
 								</option>
-								<option className="choice" value="2">
+								<option className='choice' value='2'>
 									Dijkstra
 								</option>
-								<option className="choice" value="3">
+								<option className='choice' value='3'>
 									Greedy BFS
 								</option>
-								<option className="choice" value="4">
+								<option className='choice' value='4'>
 									BFS
 								</option>
-								<option className="choice" value="5">
+								<option className='choice' value='5'>
 									DFS
 								</option>
 							</select>
 						</label>
 					</div>
-					<div className="selectdiv">
+					<div className='selectdiv'>
 						<label>
-							<select disabled={this.state.freeze} onChange={this.handleRandomValue} name="randomValue">
-								<option defaultValue value="0">
+							<select disabled={this.state.freeze} onChange={this.handleRandomValue} name='randomValue'>
+								<option defaultValue value='0'>
 									Randomness 0%
 								</option>
-								<option className="choice" value="0.2">
+								<option className='choice' value='0.2'>
 									Randomness 20%
 								</option>
-								<option className="choice" value="0.3">
+								<option className='choice' value='0.3'>
 									Randomness 30%
 								</option>
-								<option className="choice" value="0.4">
+								<option className='choice' value='0.4'>
 									Randomness 40%
 								</option>
 							</select>
@@ -380,34 +384,34 @@ class Board extends React.Component {
 						disabled={this.state.ison}
 						style={{ marginTop: "60px" }}
 						onClick={this.handleButton}
-						className="mainButton"
+						className='mainButton'
 					>
 						{buttonvalue}
 					</button>
 
-					<button onClick={this.handleRandomWalls} className="mainButton">
+					<button onClick={this.handleRandomWalls} className='mainButton'>
 						Random
 					</button>
 
-					<button onClick={this.handleRemovePath} className="mainButton2">
+					<button onClick={this.handleRemovePath} className='mainButton2'>
 						Clear
 					</button>
 
-					<div className="selectdiv1">
+					<div className='selectdiv1'>
 						<label>
-							<select disabled={this.state.ison} onChange={this.handlePaceValue} name="pace">
-								<option defaultValue value="10">
+							<select disabled={this.state.ison} onChange={this.handlePaceValue} name='pace'>
+								<option defaultValue value='10'>
 									Fast
 								</option>
-								<option value="20">Average</option>
-								<option value="30">Slow</option>
+								<option value='20'>Average</option>
+								<option value='30'>Slow</option>
 							</select>
 						</label>
 					</div>
 					{this.state.algo !== 5 ? (
 						<label>
 							<input
-								type="checkbox"
+								type='checkbox'
 								defaultChecked={this.state.allowDiagnols}
 								onChange={this.handleAllowDiagnols}
 							/>
@@ -418,7 +422,7 @@ class Board extends React.Component {
 					)}
 				</div>
 
-				<table className="outer">
+				<table className='outer'>
 					<tbody>{board}</tbody>
 				</table>
 			</div>

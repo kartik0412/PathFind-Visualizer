@@ -39,7 +39,6 @@ function greedybfs(startNode, endNode, grid, allowDiagnols) {
 			)
 				continue;
 			grid[xx][yy].isVisited = true;
-			visitedNodes.push([xx, yy]);
 			grid[xx][yy].parent = [curNode.x, curNode.y];
 			grid[xx][yy].distance = calculateH(xx, yy, endNode, allowDiagnols);
 			if (xx === endx && yy === endy) {
@@ -53,6 +52,7 @@ function greedybfs(startNode, endNode, grid, allowDiagnols) {
 				parentNodes.push([startx, starty]);
 				return [visitedNodes, parentNodes];
 			}
+			visitedNodes.push([xx, yy]);
 			q.push(grid[xx][yy]);
 		}
 	}

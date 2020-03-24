@@ -52,6 +52,7 @@ function dijkstra(startNode, endNode, grid, allowDiagnols) {
 			}
 			if (xx === endNode.x && yy === endNode.y) {
 				console.log("From Dijkstra");
+				visitedNodes.pop();
 				let node = newNode(xx, yy, dis[xx][yy], curNode);
 				while (node.parent != null) {
 					parentNodes.push([node.x, node.y]);
