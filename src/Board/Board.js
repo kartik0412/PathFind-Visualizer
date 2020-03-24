@@ -26,11 +26,12 @@ class Board extends React.Component {
 		};
 		this.handleButton = this.handleButton.bind(this);
 		this.handleRemovePath = this.handleRemovePath.bind(this);
-		this.handleRandomWalls = this.handleRandomWalls.bind(this);
 		this.handleAllowDiagnols = this.handleAllowDiagnols.bind(this);
 		this.handleAlgo = this.handleAlgo.bind(this);
 		this.handleRandomValue = this.handleRandomValue.bind(this);
 		this.handlePaceValue = this.handlePaceValue.bind(this);
+		this.handleMaze = this.handleMaze.bind(this);
+		this.handleClearWalls = this.handleClearWalls.bind(this);
 	}
 
 	handleAlgo(evt) {
@@ -43,10 +44,90 @@ class Board extends React.Component {
 			pace: Number(evt.target.value)
 		});
 	}
+
+	handleClearWalls() {
+		let newgrid = this.state.grid;
+		for (let i = 0; i < nrows; i++) {
+			for (let j = 0; j < ncols; j++) {
+				newgrid[i][j].isWall = false;
+			}
+		}
+		this.setState(
+			{
+				grid: newgrid,
+				isMouseDown: false,
+				ison: false,
+				hasdone: false,
+				freeze: false,
+				randomValue: 0
+			},
+			() => {
+				for (let i = 0; i < nrows; i++) {
+					for (let j = 0; j < ncols; j++) {
+						let cellType = "notWall";
+						if (this.state.grid[i][j].isEnd) cellType = "endCell";
+						else if (this.state.grid[i][j].isStart) cellType = "startCell";
+						console.log(i, j, document.getElementById(`node-${i}-${j}`).className);
+						document.getElementById(`node-${i}-${j}`).className = cellType;
+						document.getElementById(`node-${i}-${j}`).innerHTML = "";
+					}
+				}
+			}
+		);
+	}
+
 	handleRandomValue(evt) {
-		this.setState({
-			randomValue: Number(evt.target.value)
-		});
+		this.setState(
+			{
+				randomValue: Number(evt.target.value)
+			},
+			() => {
+				let newGrid = [];
+				for (let i = 0; i < nrows; i++) {
+					let x = [];
+					for (let j = 0; j < ncols; j++) {
+						let makeWall = Math.random() <= this.state.randomValue;
+						if (this.state.grid[i][j].isStart || this.state.grid[i][j].isEnd) makeWall = false;
+
+						x.push({
+							x: i,
+							y: j,
+							isWall: makeWall,
+							isStart: this.state.grid[i][j].isStart,
+							isEnd: this.state.grid[i][j].isEnd,
+							isVisited: false,
+							distance: Infinity,
+							parent: null
+						});
+					}
+					newGrid.push(x);
+				}
+				this.setState(
+					{
+						grid: newGrid,
+						isMouseDown: false,
+						ison: false,
+						hasdone: false,
+						freeze: false,
+						randomValue: 0,
+						isMove: false,
+						previous: []
+					},
+					() => {
+						for (let i = 0; i < nrows; i++) {
+							for (let j = 0; j < ncols; j++) {
+								let cellType = "notWall";
+								if (this.state.grid[i][j].isEnd) cellType = "endCell";
+								else if (this.state.grid[i][j].isStart) cellType = "startCell";
+								else if (this.state.grid[i][j].isWall) cellType = "wall";
+								document.getElementById(`node-${i}-${j}`).className = cellType;
+								document.getElementById(`node-${i}-${j}`).innerHTML = "";
+							}
+						}
+					}
+				);
+			}
+		);
 	}
 
 	handleMouseDown(x, y) {
@@ -101,6 +182,73 @@ class Board extends React.Component {
 		});
 	}
 
+	handleMaze() {
+		let maze = [];
+		for (let i = 0; i < ncols; i++) {
+			if (this.state.grid[0][i].isStart || this.state.grid[0][i].isEnd) continue;
+			maze.push([0, i]);
+		}
+		for (let i = 1; i < nrows; i++) {
+			if (this.state.grid[i][ncols - 1].isStart || this.state.grid[i][ncols - 1].isEnd) continue;
+			maze.push([i, ncols - 1]);
+		}
+		for (let i = ncols - 2; i >= 0; i--) {
+			if (this.state.grid[nrows - 1][i].isStart || this.state.grid[nrows - 1][i].isEnd) continue;
+			maze.push([nrows - 1, i]);
+		}
+		for (let i = nrows - 2; i >= 1; i--) {
+			if (this.state.grid[i][0].isStart || this.state.grid[i][0].isEnd) continue;
+			maze.push([i, 0]);
+		}
+
+		for (let i = 3; i < nrows - 1; i += 2) {
+			for (let j = 1; j < ncols - 1; j++) {
+				if (this.state.grid[i][j].isStart || this.state.grid[i][j].isEnd) continue;
+				if (Math.random() <= 0.35) {
+					maze.push([i, j]);
+				}
+			}
+		}
+
+		for (let j = 3; j < ncols; j += 2) {
+			for (let i = 1; i < nrows - 1; i++) {
+				if (this.state.grid[i][j].isStart || this.state.grid[i][j].isEnd) continue;
+				if (Math.random() <= 0.35) {
+					maze.push([i, j]);
+				}
+			}
+		}
+
+		let grid = this.state.grid;
+		for (let i = 0; i < maze.length; i++) {
+			let [x, y] = maze[i];
+			grid[x][y].isWall = true;
+			grid[x][y].isVisited = false;
+			grid[x][y].distance = Infinity;
+			grid[x][y].parent = null;
+		}
+		for (let i = 0; i <= maze.length; i++) {
+			if (i === maze.length) {
+				setTimeout(() => {
+					this.setState({
+						grid: grid,
+						isMouseDown: false,
+						ison: false,
+						hasdone: false,
+						freeze: false,
+						randomValue: 0,
+						isMove: false,
+						previous: []
+					});
+				}, 20 * i);
+			} else {
+				setTimeout(() => {
+					document.getElementById(`node-${maze[i][0]}-${maze[i][1]}`).className = "wall";
+				}, 20 * i);
+			}
+		}
+	}
+
 	handleReset() {
 		this.setState(
 			{
@@ -120,50 +268,6 @@ class Board extends React.Component {
 						if (this.state.grid[i][j].isEnd) cellType = "endCell";
 						else if (this.state.grid[i][j].isStart) cellType = "startCell";
 						console.log(i, j, document.getElementById(`node-${i}-${j}`).className);
-						document.getElementById(`node-${i}-${j}`).className = cellType;
-						document.getElementById(`node-${i}-${j}`).innerHTML = "";
-					}
-				}
-			}
-		);
-	}
-
-	handleRandomWalls() {
-		let newGrid = [];
-		for (let i = 0; i < nrows; i++) {
-			let x = [];
-			for (let j = 0; j < ncols; j++) {
-				let makeWall = Math.random() <= this.state.randomValue;
-				if (this.state.grid[i][j].isStart || this.state.grid[i][j].isEnd) makeWall = false;
-
-				x.push({
-					x: i,
-					y: j,
-					isWall: makeWall,
-					isStart: this.state.grid[i][j].isStart,
-					isEnd: this.state.grid[i][j].isEnd,
-					isVisited: false,
-					distance: Infinity,
-					parent: null
-				});
-			}
-			newGrid.push(x);
-		}
-		this.setState(
-			{
-				grid: newGrid,
-				isMouseDown: false,
-				ison: false,
-				hasdone: false,
-				freeze: false
-			},
-			() => {
-				for (let i = 0; i < nrows; i++) {
-					for (let j = 0; j < ncols; j++) {
-						let cellType = "notWall";
-						if (this.state.grid[i][j].isEnd) cellType = "endCell";
-						else if (this.state.grid[i][j].isStart) cellType = "startCell";
-						else if (this.state.grid[i][j].isWall) cellType = "wall";
 						document.getElementById(`node-${i}-${j}`).className = cellType;
 						document.getElementById(`node-${i}-${j}`).innerHTML = "";
 					}
@@ -343,21 +447,13 @@ class Board extends React.Component {
 					<div className='selectdiv'>
 						<label>
 							<select disabled={this.state.freeze} onChange={this.handleAlgo} name='algo'>
-								<option defaultValue className='choice' value='1'>
+								<option defaultValue value='1'>
 									A Star
 								</option>
-								<option className='choice' value='2'>
-									Dijkstra
-								</option>
-								<option className='choice' value='3'>
-									Greedy BFS
-								</option>
-								<option className='choice' value='4'>
-									BFS
-								</option>
-								<option className='choice' value='5'>
-									DFS
-								</option>
+								<option value='2'>Dijkstra</option>
+								<option value='3'>Greedy BFS</option>
+								<option value='4'>BFS</option>
+								<option value='5'>DFS</option>
 							</select>
 						</label>
 					</div>
@@ -365,21 +461,25 @@ class Board extends React.Component {
 						<label>
 							<select disabled={this.state.freeze} onChange={this.handleRandomValue} name='randomValue'>
 								<option defaultValue value='0'>
-									Randomness 0%
+									Random Walls 0%
 								</option>
-								<option className='choice' value='0.2'>
-									Randomness 20%
-								</option>
-								<option className='choice' value='0.3'>
-									Randomness 30%
-								</option>
-								<option className='choice' value='0.4'>
-									Randomness 40%
-								</option>
+								<option value='0.2'>Random Walls 20%</option>
+								<option value='0.3'>Random Walls 30%</option>
+								<option value='0.4'>Random Walls 40%</option>
 							</select>
 						</label>
 					</div>
-
+					<div className='selectdiv1'>
+						<label>
+							<select disabled={this.state.ison} onChange={this.handlePaceValue} name='pace'>
+								<option defaultValue value='8'>
+									Fast
+								</option>
+								<option value='20'>Average</option>
+								<option value='30'>Slow</option>
+							</select>
+						</label>
+					</div>
 					<button
 						disabled={this.state.ison}
 						style={{ marginTop: "60px" }}
@@ -389,25 +489,17 @@ class Board extends React.Component {
 						{buttonvalue}
 					</button>
 
-					<button onClick={this.handleRandomWalls} className='mainButton'>
-						Random
+					<button onClick={this.handleMaze} className='mainButton'>
+						Maze
+					</button>
+					<button onClick={this.handleClearWalls} className='mainButton2'>
+						Clear All
 					</button>
 
 					<button onClick={this.handleRemovePath} className='mainButton2'>
-						Clear
+						Clear Path
 					</button>
 
-					<div className='selectdiv1'>
-						<label>
-							<select disabled={this.state.ison} onChange={this.handlePaceValue} name='pace'>
-								<option defaultValue value='10'>
-									Fast
-								</option>
-								<option value='20'>Average</option>
-								<option value='30'>Slow</option>
-							</select>
-						</label>
-					</div>
 					{this.state.algo !== 5 ? (
 						<label>
 							<input
@@ -415,7 +507,7 @@ class Board extends React.Component {
 								defaultChecked={this.state.allowDiagnols}
 								onChange={this.handleAllowDiagnols}
 							/>
-							<span style={{ color: "white", font: "16px Consolas" }}>Allow Diagonals</span>
+							<span style={{ color: "white", font: "16px Fira Sans, sans-serif" }}>Allow Diagonals</span>
 						</label>
 					) : (
 						""

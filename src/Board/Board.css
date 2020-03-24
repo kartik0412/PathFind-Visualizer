@@ -1,7 +1,3 @@
-.row {
-	margin: auto;
-}
-
 body {
 	overflow: hidden;
 }
@@ -100,8 +96,7 @@ html {
 	width: 100%;
 	height: 150px;
 	background: rgb(252, 118, 106);
-	background: linear-gradient(306deg, rgba(252, 118, 106, 1) 27.5%, rgba(0, 212, 255, 1) 20%);
-	/* position: absolute; */
+	background: linear-gradient(306deg, rgba(252, 118, 106, 1) 30%, rgba(0, 212, 255, 1) 20%);
 }
 
 .selectdiv {
@@ -137,8 +132,8 @@ select::-ms-expand {
 
 .selectdiv:after {
 	content: "<>";
-	font: 14px "Consolas", monospace;
-	color: #333;
+	font-size: 12px;
+	color: white;
 	-webkit-transform: rotate(90deg);
 	-moz-transform: rotate(90deg);
 	-ms-transform: rotate(90deg);
@@ -158,8 +153,8 @@ select::-ms-expand {
 
 .selectdiv1:after {
 	content: "<>";
-	font: 14px "Consolas", monospace;
-	color: #333;
+	font-size: 12px;
+	color: white;
 	-webkit-transform: rotate(90deg);
 	-moz-transform: rotate(90deg);
 	-ms-transform: rotate(90deg);
@@ -211,14 +206,6 @@ select::-ms-expand {
 	-ms-word-break: normal;
 	word-break: normal;
 }
-
-.choice {
-	font-weight: bolder;
-	border: none;
-	outline: none;
-	font: 15px "Fira Sans", sans-serif;
-}
-
 .selectdiv select {
 	-webkit-appearance: none;
 	-moz-appearance: none;
