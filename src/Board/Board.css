@@ -1,233 +1,233 @@
 body {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 table {
-	border-collapse: collapse;
-	-webkit-touch-callout: none; /* iOS Safari */
-	-webkit-user-select: none; /* Safari */
-	-khtml-user-select: none; /* Konqueror HTML */
-	-moz-user-select: none; /* Old versions of Firefox */
-	-ms-user-select: none; /* Internet Explorer/Edge */
-	user-select: none; /* Non-prefixed version, currently
+    border-collapse: collapse;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
                     supported by Chrome, Opera and Firefox */
 }
 
 .mainBox {
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .outer {
-	margin: auto;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+    margin: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .mainButton {
-	width: 100px;
-	height: 30px;
-	margin: 10px;
-	align-self: center;
-	text-transform: uppercase;
-	background-color: white;
-	outline: none;
-	font: 15px "Fira Sans", sans-serif;
-	border: none;
-	color: #fc766a;
-	font-weight: 700;
-	border-radius: 15px;
-	-webkit-box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.75);
-	-moz-box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.75);
-	box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.75);
+    width: 100px;
+    height: 30px;
+    margin: 10px;
+    align-self: center;
+    text-transform: uppercase;
+    background-color: white;
+    outline: none;
+    font: 13px "Fira Sans", sans-serif;
+    border: none;
+    color: #fc766a;
+    font-weight: 700;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.75);
 }
 
 .mainButton2 {
-	width: 100px;
-	height: 30px;
-	margin: 10px;
-	align-self: center;
-	text-transform: uppercase;
-	background-color: white;
-	outline: none;
-	font: 15px "Fira Sans", sans-serif;
-	border: none;
-	color: rgba(0, 212, 255, 1);
-	font-weight: 700;
-	border-radius: 15px;
-	-webkit-box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.75);
-	-moz-box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.75);
-	box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.75);
+    width: 100px;
+    height: 30px;
+    margin: 10px;
+    align-self: center;
+    text-transform: uppercase;
+    background-color: white;
+    outline: none;
+    font: 13px "Fira Sans", sans-serif;
+    border: none;
+    color: rgba(0, 212, 255, 1);
+    font-weight: 700;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 10px 18px -8px rgba(0, 0, 0, 0.75);
 }
 
 .mainButton:hover {
-	cursor: pointer;
-	transition: 0.1s ease-in;
-	background-color: rgba(252, 118, 106, 1);
-	color: white;
-	-webkit-box-shadow: 0px 10px 4px -8px rgba(0, 0, 0, 0.75);
-	-moz-box-shadow: 0px 10px 4px -8px rgba(0, 0, 0, 0.75);
-	box-shadow: 0px 10px 4px -8px rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+    transition: 0.1s ease-in;
+    background-color: rgba(252, 118, 106, 1);
+    color: white;
+    -webkit-box-shadow: 0px 10px 4px -8px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 10px 4px -8px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 10px 4px -8px rgba(0, 0, 0, 0.75);
 }
 
 .mainButton2:hover {
-	cursor: pointer;
-	transition: 0.1s ease-in;
+    cursor: pointer;
+    transition: 0.1s ease-in;
 
-	background-color: rgba(0, 212, 255, 1);
-	color: white;
-	-webkit-box-shadow: 0px 10px 4px -8px rgba(0, 0, 0, 0.75);
-	-moz-box-shadow: 0px 10px 4px -8px rgba(0, 0, 0, 0.75);
-	box-shadow: 0px 10px 4px -8px rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 212, 255, 1);
+    color: white;
+    -webkit-box-shadow: 0px 10px 4px -8px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 10px 4px -8px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 10px 4px -8px rgba(0, 0, 0, 0.75);
 }
 
 body,
 html {
-	margin: 0;
-	width: 100% !important;
-	padding: 0;
+    margin: 0;
+    width: 100% !important;
+    padding: 0;
 }
 
 .box {
-	width: 100%;
-	height: 150px;
-	background: rgb(252, 118, 106);
-	background: linear-gradient(306deg, rgba(252, 118, 106, 1) 30%, rgba(0, 212, 255, 1) 20%);
+    width: 100%;
+    height: 150px;
+    background: rgb(252, 118, 106);
+    background: linear-gradient(306deg, rgba(252, 118, 106, 1) 30%, rgba(0, 212, 255, 1) 20%);
 }
 
 .selectdiv {
-	position: relative;
-	/*Don't really need this just for demo styling*/
+    position: relative;
+    /*Don't really need this just for demo styling*/
 
-	float: left;
-	min-width: 200px;
-	margin: 40px 2%;
-	border-bottom: 2px solid white;
+    float: left;
+    min-width: 200px;
+    margin: 40px 2%;
+    border-bottom: 2px solid white;
 }
 
 *:focus {
-	outline: 0;
+    outline: 0;
 }
 
 /* IE11 hide native button (thanks Matt!) */
 select::-ms-expand {
-	display: none;
+    display: none;
 }
 
 .heading {
-	color: white;
-	height: 0px;
-	font: 29px "Fira Sans", sans-serif;
-	padding: 0;
-	position: absolute;
-	width: 100%;
-	margin-left: 27px;
-	text-align: left;
-	font-weight: bolder;
+    color: white;
+    height: 0px;
+    font: 29px "Fira Sans", sans-serif;
+    padding: 0;
+    position: absolute;
+    width: 100%;
+    margin-left: 27px;
+    text-align: left;
+    font-weight: bolder;
 }
 
 .selectdiv:after {
-	content: "<>";
-	font-size: 12px;
-	color: white;
-	-webkit-transform: rotate(90deg);
-	-moz-transform: rotate(90deg);
-	-ms-transform: rotate(90deg);
-	transform: rotate(90deg);
-	margin-top: 15px;
-	right: 5px;
-	/*Adjust for position however you want*/
+    content: "<>";
+    font-size: 12px;
+    color: white;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    margin-top: 15px;
+    right: 5px;
+    /*Adjust for position however you want*/
 
-	top: 15px;
-	padding: 0 0 2px;
-	border-bottom: 2px solid white;
-	/*left line */
+    top: 15px;
+    padding: 0 0 2px;
+    border-bottom: 2px solid white;
+    /*left line */
 
-	position: absolute;
-	pointer-events: none;
+    position: absolute;
+    pointer-events: none;
 }
 
 .selectdiv1:after {
-	content: "<>";
-	font-size: 12px;
-	color: white;
-	-webkit-transform: rotate(90deg);
-	-moz-transform: rotate(90deg);
-	-ms-transform: rotate(90deg);
-	transform: rotate(90deg);
-	margin-top: 15px;
-	right: 5px;
-	/*Adjust for position however you want*/
+    content: "<>";
+    font-size: 12px;
+    color: white;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    margin-top: 15px;
+    right: 5px;
+    /*Adjust for position however you want*/
 
-	top: 15px;
-	padding: 0 0 2px;
-	border-bottom: 2px solid white;
-	/*left line */
+    top: 15px;
+    padding: 0 0 2px;
+    border-bottom: 2px solid white;
+    /*left line */
 
-	position: absolute;
-	pointer-events: none;
+    position: absolute;
+    pointer-events: none;
 }
 
 .selectdiv1 {
-	position: relative;
-	/*Don't really need this just for demo styling*/
+    position: relative;
+    /*Don't really need this just for demo styling*/
 
-	float: left;
-	min-width: 125px;
-	border-bottom: 2px solid white;
-	margin: 40px 2%;
+    float: left;
+    min-width: 125px;
+    border-bottom: 2px solid white;
+    margin: 40px 2%;
 }
 
 .selectdiv1 select {
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	/* Add some styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Add some styling */
 
-	display: block;
-	width: 100%;
-	max-width: 150px;
-	height: 40px;
-	margin-top: 20px;
-	font-weight: bolder;
-	letter-spacing: 2px;
-	float: left;
-	padding: 0px 24px;
-	font: 18px "Fira Sans", sans-serif;
-	line-height: 1.75;
-	color: white;
-	background-color: rgba(0, 212, 255, 1);
-	background-image: none;
-	border: none;
-	-ms-word-break: normal;
-	word-break: normal;
+    display: block;
+    width: 100%;
+    max-width: 150px;
+    height: 40px;
+    margin-top: 20px;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    float: left;
+    padding: 0px 24px;
+    font: 18px "Fira Sans", sans-serif;
+    line-height: 1.75;
+    color: white;
+    background-color: rgba(0, 212, 255, 1);
+    background-image: none;
+    border: none;
+    -ms-word-break: normal;
+    word-break: normal;
 }
 .selectdiv select {
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	/* Add some styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Add some styling */
 
-	display: block;
-	width: 100%;
-	max-width: 320px;
-	height: 40px;
-	margin-top: 20px;
-	font-weight: bolder;
-	letter-spacing: 2px;
-	float: left;
-	padding: 0px 24px;
-	font: 18px "Fira Sans", sans-serif;
-	line-height: 1.75;
-	color: white;
-	outline: none;
-	background-color: rgba(0, 212, 255, 1);
-	background-image: none;
-	border: none;
-	-ms-word-break: normal;
-	word-break: normal;
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    height: 40px;
+    margin-top: 20px;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    float: left;
+    padding: 0px 24px;
+    font: 18px "Fira Sans", sans-serif;
+    line-height: 1.75;
+    color: white;
+    outline: none;
+    background-color: rgba(0, 212, 255, 1);
+    background-image: none;
+    border: none;
+    -ms-word-break: normal;
+    word-break: normal;
 }
