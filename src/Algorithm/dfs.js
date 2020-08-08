@@ -4,20 +4,12 @@ let grid = [];
 
 function solve(x, y, endx, endy, visitedNodes) {
 	if (x === endx && y === endy) return 1;
-
+	grid[x][y].isVisited = true;
 	for (let i = 0; i < dirx.length; i++) {
 		let xx = x + dirx[i];
 		let yy = y + diry[i];
-		if (
-			xx < 0 ||
-			yy < 0 ||
-			xx >= grid.length ||
-			yy >= grid[0].length ||
-			grid[xx][yy].isWall === true ||
-			grid[xx][yy].isVisited === true
-		)
+		if (xx < 0 || yy < 0 || xx >= grid.length || yy >= grid[0].length || grid[xx][yy].isWall === true || grid[xx][yy].isVisited === true)
 			continue;
-		grid[xx][yy].isVisited = true;
 		grid[xx][yy].parent = grid[x][y];
 		if (xx === endx && yy === endy) return 1;
 		visitedNodes.push([xx, yy]);

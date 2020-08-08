@@ -1,113 +1,115 @@
 .notWall {
-	width: 25px;
-	height: 25px;
-	border: 1px solid gray;
-	overflow: hidden;
+    width: 25px;
+    height: 25px;
+    border: 1px solid gray;
+    overflow: hidden;
 }
 
 td {
-	display: -moz-inline-box;
-	overflow: hidden;
-	white-space: nowrap;
+    display: -moz-inline-box;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .tracePath {
-	width: 25px;
-	height: 25px;
-	border: 1px solid white;
-	padding: 0;
-	font-size: 10px;
-	background-color: yellow;
-	animation-name: stretch2;
-	animation-duration: 0.4s;
-	animation-timing-function: ease-out;
-	animation-delay: 0;
-	overflow: hidden;
+    width: 25px;
+    height: 25px;
+    border: 1px solid white;
+    padding: 0;
+    font-size: 10px;
+    background-color: yellow;
+    animation-name: stretch2;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    overflow: hidden;
 }
 .wall {
-	overflow: hidden;
-	width: 25px;
-	height: 25px;
-	border: 1px solid black;
-	animation-name: wall;
-	animation-duration: 0.2s;
-	animation-timing-function: ease-out;
-	background-color: black;
-	animation-delay: 0ms;
+    overflow: hidden;
+    width: 25px;
+    height: 25px;
+    border: 1px solid black;
+    animation-name: wall;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-out;
+    background-color: black;
+    animation-delay: 0ms;
 }
 
 .startCell {
-	width: 25px;
-	height: 25px;
-	cursor: grabbing;
-	background-image: url(source.svg);
-	overflow: hidden;
+    width: 25px;
+    height: 25px;
+    cursor: grabbing;
+    background-image: url(source.svg);
+    overflow: hidden;
+    background-repeat: no-repeat;
 }
 
 .endCell {
-	width: 25px;
-	height: 25px;
-	background-image: url(destination.svg);
-	cursor: grabbing;
-	overflow: hidden;
+    width: 25px;
+    height: 25px;
+    background-image: url(destination.svg);
+    cursor: grabbing;
+    overflow: hidden;
+    background-repeat: no-repeat;
 }
 
 .visited {
-	width: 25px;
-	height: 25px;
-	border: 1px solid white;
-	background-color: rgba(0, 212, 255, 1);
-	animation-name: stretch;
-	overflow: hidden;
-	animation-duration: 1.25s;
-	animation-timing-function: ease-out;
-	animation-delay: 0;
+    width: 25px;
+    height: 25px;
+    border: 1px solid white;
+    background-color: rgba(0, 212, 255, 1);
+    animation-name: stretch;
+    overflow: hidden;
+    animation-duration: 1.25s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
 }
 
 @keyframes wall {
-	0% {
-		transform: scale(0);
-	}
+    0% {
+        transform: scale(0);
+    }
 
-	100% {
-		transform: scale(1);
-	}
+    100% {
+        transform: scale(1);
+    }
 }
 
 @keyframes stretch {
-	0% {
-		transform: scale(0.3);
-		background-color: rgba(88, 88, 248, 0.75);
-		border-radius: 100%;
-	}
+    0% {
+        transform: scale(0.3);
+        background-color: rgba(88, 88, 248, 0.75);
+        border-radius: 100%;
+    }
 
-	50% {
-		background-color: rgba(17, 104, 217, 0.75);
-	}
+    50% {
+        background-color: rgba(17, 104, 217, 0.75);
+    }
 
-	75% {
-		transform: scale(1.2);
-		background-color: rgba(42, 216, 158, 0.75);
-	}
+    75% {
+        transform: scale(1.2);
+        background-color: rgba(42, 216, 158, 0.75);
+    }
 
-	100% {
-		transform: scale(1);
-		background-color: rgba(0, 212, 255, 0.75);
-	}
+    100% {
+        transform: scale(1);
+        background-color: rgba(0, 212, 255, 0.75);
+    }
 }
 @keyframes stretch2 {
-	0% {
-		transform: scale(1);
-		background-color: rgb(240, 243, 51);
-	}
+    0% {
+        transform: scale(1);
+        background-color: rgb(240, 243, 51);
+    }
 
-	50% {
-		transform: scale(1.25);
-		background-color: rgb(250, 250, 68);
-	}
+    50% {
+        transform: scale(1.25);
+        background-color: rgb(250, 250, 68);
+    }
 
-	100% {
-		transform: scale(1);
-		background-color: yellow;
-	}
+    100% {
+        transform: scale(1);
+        background-color: yellow;
+    }
 }
