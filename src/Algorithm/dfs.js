@@ -1,6 +1,6 @@
+let grid = [];
 let dirx = [1, 0, -1, 0];
 let diry = [0, 1, 0, -1];
-let grid = [];
 
 function solve(x, y, endx, endy, visitedNodes) {
 	if (x === endx && y === endy) return 1;
@@ -18,10 +18,14 @@ function solve(x, y, endx, endy, visitedNodes) {
 	return 0;
 }
 
-function dfs(startNode, endNode, stateGrid) {
+function dfs(startNode, endNode, stateGrid, allowDiagnols) {
 	let visitedNodes = [];
 	let parentNodes = [];
 	grid = stateGrid;
+	if (allowDiagnols === true) {
+		dirx = [-1, -1, -1, 0, 0, 1, 1, 1];
+		diry = [-1, 0, 1, -1, 1, -1, 0, 1];
+	}
 	let found = solve(startNode.x, startNode.y, endNode.x, endNode.y, visitedNodes);
 	let node = grid[endNode.x][endNode.y];
 	while (node.parent != null) {

@@ -9,7 +9,7 @@ function algorithm(startNode, endNode, grid, value, allowDiagnols) {
 	else if (value === 2) return dijkstra(startNode, endNode, grid, allowDiagnols);
 	else if (value === 3) return greedybfs(startNode, endNode, grid, allowDiagnols);
 	else if (value === 4) return bfs(startNode, endNode, grid, allowDiagnols);
-	else return dfs(startNode, endNode, grid);
+	else return dfs(startNode, endNode, grid, allowDiagnols);
 }
 
 export default algorithm;

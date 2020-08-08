@@ -500,18 +500,15 @@ class Board extends React.Component {
 						Clear Path
 					</button>
 
-					{this.state.algo !== 5 ? (
-						<label>
-							<input
-								type='checkbox'
-								defaultChecked={this.state.allowDiagnols}
-								onChange={this.handleAllowDiagnols}
-							/>
-							<span style={{ color: "white", font: "16px Fira Sans, sans-serif" }}>Allow Diagonals</span>
-						</label>
-					) : (
-						""
-					)}
+					<label>
+						<input
+							type='checkbox'
+							defaultChecked={this.state.allowDiagnols}
+							onChange={this.handleAllowDiagnols}
+						/>
+						<span style={{ color: "white", font: "16px Fira Sans, sans-serif" }}>Allow Diagonals</span>
+					</label>
+
 				</div>
 
 				<table className='outer'>
